@@ -54,7 +54,7 @@ function QuoteTableRow(props) {
   const { data } = props
 
   return (
-    <tr>
+    <tr className="quoteRow">
       <td>{data['Location']}</td>
       <td>{data['PartNo']}</td>
       <td>{data['Product']}</td>

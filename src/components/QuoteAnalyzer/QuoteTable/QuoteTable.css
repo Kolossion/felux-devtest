@@ -1,0 +1,15 @@
+.quoteTable {
+  /* table-layout: fixed; */
+  border-collapse: collapse;
+  border: 2px solid black;
+  width: 66%;
+}
+
+.quoteTable th, .quoteTable td {
+  padding: 10px;
+  border: 1px solid #cccccc;
+}
+
+.quoteTable .quoteRow:nth-child(even) {
+  background-color: #eaeaea;
+}
