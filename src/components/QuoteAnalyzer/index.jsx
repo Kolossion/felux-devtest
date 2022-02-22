@@ -31,8 +31,8 @@ function QuoteAnalyzer(props) {
 
 
   return (
-    <div className="quoteAnalyzer">
-      <div className="tableControls">
+    <div className='quoteAnalyzer'>
+      <div className='tableControls'>
         <KPIs
           selectedQuotes={selectedQuotes}
         />

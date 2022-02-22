@@ -6,11 +6,11 @@ function QuoteTableRow(props) {
   const { data } = props
 
   return (
-    <tr className="quoteRow">
+    <tr className='quoteRow'>
       <td>{data['Location']}</td>
       <td>{data['PartNo']}</td>
       <td>{data['Product']}</td>
-      <td>{data['Weight'].toLocaleString("en-US")}</td>
+      <td>{data['Weight'].toLocaleString('en-US')}</td>
       <QuoteTableRowPrices
         onClickQuote={props.onClickQuote}
         selectedPriceType={props.selectedPriceType}
