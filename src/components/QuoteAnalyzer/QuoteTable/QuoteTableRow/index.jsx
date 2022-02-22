@@ -1,55 +1,6 @@
-import React, { useMemo } from 'react'
-import { getFormattedQuotePrice, isQuoteSelected } from '../../../../lib/helpers'
+import React from 'react'
 import PropTypes from 'prop-types'
-
-function QuoteTableRowPrices(props) {
-  const { data, selectedPriceType, selectedQuotes } = props
-  const quotes = data['Quotes']
-
-  const quotePrices = useMemo(() => {
-    const prices = quotes.map((quote) => quote[selectedPriceType])
-    prices.sort()
-    return prices
-  }, [quotes, selectedPriceType])
-
-  const getCellStyle = (quote) => {
-    let styles = { cursor: 'pointer' }
-
-    if (quote[selectedPriceType] === quotePrices[quotePrices.length - 1]) {
-      styles = { ...styles, backgroundColor: '#DB302A', color: 'white' }
-    } else if (quote[selectedPriceType] === quotePrices[0]) {
-      styles = { ...styles, backgroundColor: '#3CCF6F' }
-    }
-
-    return styles
-  }
-
-  const clickQuote = (partNo, weight, quote) => () => {
-    if (props.onClickQuote) {
-      props.onClickQuote(partNo, weight, quote)
-    }
-  }
-
-  return (
-    <>
-      {quotes.map((quote, i) => {
-        return (
-          <td
-            key={`${quote[selectedPriceType]}-${quote['Company']}-${i}`}
-            style={getCellStyle(quote)}
-            onClick={clickQuote(data['PartNo'], data['Weight'], quote)}
-          >
-            {
-              getFormattedQuotePrice(quote, selectedPriceType)
-            }
-            {isQuoteSelected({ quote, partNo: data['PartNo'], weight: data['Weight'] }, selectedQuotes) ? '*' : ''}
-          </td>
-        )
-      })
-      }
-    </>
-  )
-}
+import QuoteTableRowPrices from './QuoteTableRowPrices'
 
 function QuoteTableRow(props) {
   const { data } = props
@@ -70,6 +21,8 @@ function QuoteTableRow(props) {
   )
 }
 
-QuoteTableRow.propTypes = {}
+QuoteTableRow.propTypes = {
+  data: PropTypes.object
+}
 
 export default QuoteTableRow

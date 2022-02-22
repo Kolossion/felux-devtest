@@ -1,9 +1,10 @@
+import './QuoteTableHeader.css'
 import React from 'react'
 import PropTypes from 'prop-types'
 
 function QuoteTableHeader(props) {
   return (
-    <thead>
+    <thead className='quoteTableHeader'>
       <tr>
         <th>Location</th>
         <th>Part #</th>
@@ -17,6 +18,8 @@ function QuoteTableHeader(props) {
   )
 }
 
-QuoteTableHeader.propTypes = {}
+QuoteTableHeader.propTypes = {
+  companies: PropTypes.arrayOf(PropTypes.string)
+}
 
 export default QuoteTableHeader

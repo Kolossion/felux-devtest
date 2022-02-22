@@ -12,9 +12,10 @@ function QuoteTable(props) {
     <table className='quoteTable'>
       <QuoteTableHeader companies={getQuoteCompanies(props.data)} />
       <tbody>
-        {props.data.map((row) => {
+        {props.data.map((row, i) => {
           return (
             <QuoteTableRow 
+              key={`${row['PartNo']}-${i}`}
               onClickQuote={props.onClickQuote}
               selectedQuotes={props.selectedQuotes}
               data={row}
@@ -27,6 +28,11 @@ function QuoteTable(props) {
   )
 }
 
-QuoteTable.propTypes = {}
+QuoteTable.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  onClickQuote: PropTypes.func,
+  selectedQuotes: PropTypes.arrayOf(PropTypes.object),
+  selectedPriceType: PropTypes.string
+}
 
 export default QuoteTable

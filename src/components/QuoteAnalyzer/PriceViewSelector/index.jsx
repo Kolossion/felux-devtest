@@ -22,6 +22,9 @@ function PriceViewSelector(props) {
   )
 }
 
-PriceViewSelector.propTypes = {}
+PriceViewSelector.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.string
+}
 
 export default PriceViewSelector
