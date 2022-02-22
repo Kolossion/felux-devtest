@@ -16,6 +16,7 @@ function QuoteTable(props) {
           return (
             <QuoteTableRow 
               onClickQuote={props.onClickQuote}
+              selectedQuotes={props.selectedQuotes}
               data={row}
               selectedPriceType={props.selectedPriceType}
             />

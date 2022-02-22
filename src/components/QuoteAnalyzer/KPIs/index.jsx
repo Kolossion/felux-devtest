@@ -1,4 +1,5 @@
 import React from 'react'
+import sum from 'lodash-es/sum'
 import PropTypes from 'prop-types'
 
 function KPIs(props) {
@@ -16,7 +17,13 @@ function KPIs(props) {
 
     return priceTotal.toLocaleString("en-US", { style: 'currency', currency: 'USD' })
   }
-  const getAvgPricePerCWT = () => { }
+  const getAvgPricePerCWT = () => {
+    const totalWeight = selectedQuotes.reduce((prev, cur) => prev + cur.weight, 0.0)
+    console.log("TOTAL WEIGHT", totalWeight)
+    const weightedSums = selectedQuotes.map((quote) => (quote.weight / totalWeight) * quote.quote['FinalPrice'] )
+    console.log("WEIGHTED SUMS", weightedSums)
+    return sum(weightedSums).toLocaleString('en-US', { style: 'currency', currency: 'USD'})
+  }
 
   return (
     <div>

@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { getFormattedQuotePrice } from '../../../../lib/helpers'
+import React, { useMemo } from 'react'
+import { getFormattedQuotePrice, isQuoteSelected } from '../../../../lib/helpers'
 import PropTypes from 'prop-types'
 
 function QuoteTableRowPrices(props) {
-  const { data, selectedPriceType } = props
+  const { data, selectedPriceType, selectedQuotes } = props
   const quotes = data['Quotes']
 
   const quotePrices = useMemo(() => {
@@ -13,15 +13,15 @@ function QuoteTableRowPrices(props) {
   }, [quotes, selectedPriceType])
 
   const getCellStyle = (quote) => {
-    const baseStyles = { cursor: 'pointer' }
+    let styles = { cursor: 'pointer' }
 
     if (quote[selectedPriceType] === quotePrices[quotePrices.length - 1]) {
-      return { ...baseStyles, backgroundColor: '#DB302A', color: 'white' }
+      styles = { ...styles, backgroundColor: '#DB302A', color: 'white' }
     } else if (quote[selectedPriceType] === quotePrices[0]) {
-      return { ...baseStyles, backgroundColor: '#3CCF6F' }
+      styles = { ...styles, backgroundColor: '#3CCF6F' }
     }
 
-    return baseStyles
+    return styles
   }
 
   const clickQuote = (partNo, weight, quote) => () => {
@@ -33,15 +33,16 @@ function QuoteTableRowPrices(props) {
   return (
     <>
       {quotes.map((quote, i) => {
-        const selected = false
-
         return (
           <td
             key={`${quote[selectedPriceType]}-${quote['Company']}-${i}`}
             style={getCellStyle(quote)}
             onClick={clickQuote(data['PartNo'], data['Weight'], quote)}
           >
-            {getFormattedQuotePrice(quote, selectedPriceType)}
+            {
+              getFormattedQuotePrice(quote, selectedPriceType)
+            }
+            {isQuoteSelected({ quote, partNo: data['PartNo'], weight: data['Weight'] }, selectedQuotes) ? '*' : ''}
           </td>
         )
       })
@@ -59,7 +60,12 @@ function QuoteTableRow(props) {
       <td>{data['PartNo']}</td>
       <td>{data['Product']}</td>
       <td>{data['Weight'].toLocaleString("en-US")}</td>
-      <QuoteTableRowPrices onClickQuote={props.onClickQuote} selectedPriceType={props.selectedPriceType} data={data} />
+      <QuoteTableRowPrices
+        onClickQuote={props.onClickQuote}
+        selectedPriceType={props.selectedPriceType}
+        selectedQuotes={props.selectedQuotes}
+        data={data}
+      />
     </tr>
   )
 }
