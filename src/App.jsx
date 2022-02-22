@@ -10,7 +10,7 @@ function App() {
     // NOTE: Simulate data retrieval from backend
     setTimeout(
       () => { setQuoteData(data);},
-      2000
+      1000
     )
   }, [])
 

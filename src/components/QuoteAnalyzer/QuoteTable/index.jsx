@@ -11,7 +11,7 @@ function QuoteTable(props) {
       <QuoteTableHeader companies={getQuoteCompanies(props.data)} />
       <tbody>
         { props.data.map((row) => {
-          return <QuoteTableRow data={row} />
+          return <QuoteTableRow data={row} selectedPriceType={props.selectedPriceType} />
         })}
       </tbody>
     </table>
