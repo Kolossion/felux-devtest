@@ -3,9 +3,8 @@ import { getFormattedQuotePrice } from '../../../../lib/helpers'
 import PropTypes from 'prop-types'
 
 function QuoteTableRowPrices(props) {
-  const { quotes, selectedPriceType } = props
-  // const [maxPrice, setMaxPrice] = useState(parseFloat(-1))
-  // const [minPrice, setMinPrice] = useState(parseFloat(Number.MAX_SAFE_INTEGER))
+  const { data, selectedPriceType } = props
+  const quotes = data['Quotes']
 
   const quotePrices = useMemo(() => {
     const prices = quotes.map((quote) => quote[selectedPriceType])
@@ -14,24 +13,38 @@ function QuoteTableRowPrices(props) {
   }, [quotes, selectedPriceType])
 
   const getCellStyle = (quote) => {
+    const baseStyles = { cursor: 'pointer' }
+
     if (quote[selectedPriceType] === quotePrices[quotePrices.length - 1]) {
-      return { backgroundColor: '#DB302A', color: 'white' }
+      return { ...baseStyles, backgroundColor: '#DB302A', color: 'white' }
     } else if (quote[selectedPriceType] === quotePrices[0]) {
-      return { backgroundColor: '#3CCF6F' }
-    } else {
-      return {}
+      return { ...baseStyles, backgroundColor: '#3CCF6F' }
+    }
+
+    return baseStyles
+  }
+
+  const clickQuote = (partNo, weight, quote) => () => {
+    if (props.onClickQuote) {
+      props.onClickQuote(partNo, weight, quote)
     }
   }
 
   return (
     <>
-      { quotes.map((quote, i) => {
-          return (
-            <td key={`${quote[selectedPriceType]}-${quote['Company']}-${i}`} style={getCellStyle(quote)}>
-              { getFormattedQuotePrice(quote, selectedPriceType) }
-            </td>
-          )
-        })
+      {quotes.map((quote, i) => {
+        const selected = false
+
+        return (
+          <td
+            key={`${quote[selectedPriceType]}-${quote['Company']}-${i}`}
+            style={getCellStyle(quote)}
+            onClick={clickQuote(data['PartNo'], data['Weight'], quote)}
+          >
+            {getFormattedQuotePrice(quote, selectedPriceType)}
+          </td>
+        )
+      })
       }
     </>
   )
@@ -46,7 +59,7 @@ function QuoteTableRow(props) {
       <td>{data['PartNo']}</td>
       <td>{data['Product']}</td>
       <td>{data['Weight'].toLocaleString("en-US")}</td>
-      <QuoteTableRowPrices selectedPriceType={props.selectedPriceType} quotes={data['Quotes']} />
+      <QuoteTableRowPrices onClickQuote={props.onClickQuote} selectedPriceType={props.selectedPriceType} data={data} />
     </tr>
   )
 }

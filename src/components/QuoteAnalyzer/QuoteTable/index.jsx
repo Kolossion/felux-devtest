@@ -10,8 +10,8 @@ function QuoteTable(props) {
     <table>
       <QuoteTableHeader companies={getQuoteCompanies(props.data)} />
       <tbody>
-        { props.data.map((row) => {
-          return <QuoteTableRow data={row} selectedPriceType={props.selectedPriceType} />
+        {props.data.map((row) => {
+          return <QuoteTableRow onClickQuote={props.onClickQuote} data={row} selectedPriceType={props.selectedPriceType} />
         })}
       </tbody>
     </table>
