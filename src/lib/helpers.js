@@ -13,15 +13,14 @@ export const getQuoteCompanies = (data) => {
 
 export const getFormattedQuotePrice = (quote, key) => {
   const quoteVal = quote[key]
-  return quoteVal.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
+  return toUSD(quoteVal)
 }
 
 export const isQuoteSelected = (quote, selectedQuotes) => {
-  if (Array.isArray(selectedQuotes) && selectedQuotes.length == 0) return false
-
-  console.log("************")
-  console.log("SELECTED QUOTES", selectedQuotes)
-  console.log("QUOTE", quote)
-  console.log("FOUND INDEX?", findIndex(selectedQuotes, quote))
+  if (Array.isArray(selectedQuotes) && selectedQuotes.length === 0) return false
   return findIndex(selectedQuotes, quote) >= 0
+}
+
+export const toUSD = (val) => {
+  return val.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
 }

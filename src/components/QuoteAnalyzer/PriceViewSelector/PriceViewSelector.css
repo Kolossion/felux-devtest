@@ -1,0 +1,10 @@
+.priceViewSelector {
+  display: flex;
+  align-items: center;
+  gap:6px;
+}
+
+.priceViewSelector p {
+  font-size: 12px;
+  margin: 0;
+}

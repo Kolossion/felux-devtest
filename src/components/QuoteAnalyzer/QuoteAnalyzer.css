@@ -1,0 +1,14 @@
+.quoteAnalyzer {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quoteAnalyzer .tableControls {
+  width: 66%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  align-items: flex-end;
+}

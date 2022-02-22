@@ -1,5 +1,5 @@
+import './QuoteAnalyzer.css'
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import QuoteTable from './QuoteTable'
 import PriceViewSelector from './PriceViewSelector'
 import findIndex from 'lodash-es/findIndex'
@@ -12,8 +12,6 @@ function QuoteAnalyzer(props) {
   const onClickQuote = (partNo, weight, quote) => {
     const quoteObj = { partNo, weight, quote }
     let newList = [...selectedQuotes]
-
-    console.log("QUOTEOBJ", quoteObj)
 
     const idxInList = findIndex(selectedQuotes, (quote) => quote.partNo === partNo)
     const partNumberMatch = idxInList >= 0
@@ -33,14 +31,16 @@ function QuoteAnalyzer(props) {
 
 
   return (
-    <div>
-      <KPIs 
-        selectedQuotes={selectedQuotes}
-      />
-      <PriceViewSelector
-        value={selectedPriceType}
-        onChange={(e) => { setSelectedPriceType(e.target.value) }}
-      />
+    <div className="quoteAnalyzer">
+      <div className="tableControls">
+        <KPIs
+          selectedQuotes={selectedQuotes}
+        />
+        <PriceViewSelector
+          value={selectedPriceType}
+          onChange={(e) => { setSelectedPriceType(e.target.value) }}
+        />
+      </div>
       <QuoteTable
         data={props.data}
         selectedPriceType={selectedPriceType}

@@ -1,6 +1,9 @@
+import './KPIs.css'
 import React from 'react'
-import sum from 'lodash-es/sum'
 import PropTypes from 'prop-types'
+import KPIDataPoint from './KPIDataPoint'
+import { toUSD } from '../../../lib/helpers'
+import sum from 'lodash-es/sum'
 
 function KPIs(props) {
   const { selectedQuotes } = props
@@ -15,25 +18,25 @@ function KPIs(props) {
       0.0
     )
 
-    return priceTotal.toLocaleString("en-US", { style: 'currency', currency: 'USD' })
+    return toUSD(priceTotal)
   }
   const getAvgPricePerCWT = () => {
     const totalWeight = selectedQuotes.reduce((prev, cur) => prev + cur.weight, 0.0)
-    console.log("TOTAL WEIGHT", totalWeight)
     const weightedSums = selectedQuotes.map((quote) => (quote.weight / totalWeight) * quote.quote['FinalPrice'] )
-    console.log("WEIGHTED SUMS", weightedSums)
-    return sum(weightedSums).toLocaleString('en-US', { style: 'currency', currency: 'USD'})
+    return toUSD(sum(weightedSums))
   }
 
   return (
-    <div>
-      <p>Total Weight (lbs.): {getTotalWeight()} lbs.</p>
-      <p>Invoice: {getTotalPrice()}</p>
-      <p>Avg $/CWT: {getAvgPricePerCWT()}</p>
+    <div className="kpiContainer">
+      <KPIDataPoint title="Total Weight" value={getTotalWeight()} />
+      <KPIDataPoint title="Invoice" value={getTotalPrice()} />
+      <KPIDataPoint title="Avg $/CWT" value={getAvgPricePerCWT()} />
     </div>
   )
 }
 
-KPIs.propTypes = {}
+KPIs.propTypes = {
+  selectedQuotes: PropTypes.arrayOf(PropTypes.object)
+}
 
 export default KPIs
