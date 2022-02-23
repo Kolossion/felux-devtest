@@ -14,9 +14,9 @@ function PriceViewSelector(props) {
     <div className='priceViewSelector'>
       <p>View Price:</p>
       <select name='price-type' id='price-type' value={props.value} onChange={changeValue}>
-        <option value="FinalPrice">Final Price</option>
-        <option value="PackagingFee">Packaging Fee</option>
-        <option value="FreightFee">Freight Fee</option>
+        <option value='FinalPrice'>Final Price</option>
+        <option value='PackagingFee'>Packaging Fee</option>
+        <option value='FreightFee'>Freight Fee</option>
       </select>
     </div>
   )
